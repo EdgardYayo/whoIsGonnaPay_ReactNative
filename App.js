@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { MyContext } from './src/context';
 
 import Entries from './src/components/Entries';
 import LoserScreen from './src/components/LoserScreen';
@@ -15,13 +14,32 @@ class App extends Component{
     result:""
 }
 
-  render(){
+addPlayerHandler = (name) => {
+  this.setState((prevState, props) => ({
+    players:[
+      ...prevState.players,
+      name
+    ]
+  }))
+}
+
+removePlayerHandler = (idx) => {
+  let newArray = this.state.players;
+  newArray.splice(idx, 1);
+  this.setState({ players: newArray});
+}
+
+render(){
   return (
     <ScrollView>
       <View style={styles.container}>
         {
           this.state.stage === 1 ? (
-            <Entries/>
+            <Entries 
+              addPlayer={this.addPlayerHandler} 
+              players={this.state.players}
+              removePlayer={this.removePlayerHandler}
+              />
           ) : (
             <LoserScreen/>
           )
