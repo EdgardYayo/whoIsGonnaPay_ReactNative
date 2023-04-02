@@ -1,13 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { MyContext } from './src/context';
 
-export default function App() {
+import Entries from './src/components/Entries';
+import LoserScreen from './src/components/LoserScreen';
+
+
+class App extends Component{
+  //static contextType = MyContext;
+
+  state = {
+    stage:1,
+    players:[],
+    result:""
+}
+
+  render(){
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <ScrollView>
+      <View style={styles.container}>
+        {
+          this.state.stage === 1 ? (
+            <Entries/>
+          ) : (
+            <LoserScreen/>
+          )
+        }
+      </View>
+    </ScrollView>
+  )};
 }
 
 const styles = StyleSheet.create({
@@ -16,5 +37,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop:80
   },
 });
+
+export default App;
