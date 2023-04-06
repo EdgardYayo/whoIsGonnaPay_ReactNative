@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 import { Input, Button, ListItem, Text } from 'react-native-elements'; 
 
-const Entries = ({ addPlayer, players, removePlayer }) => {
+const Entries = ({ addPlayer, players, removePlayer, nextStage }) => {
 
     const renderPlayers = () => (
         players?.map((item, idx) => (
@@ -78,6 +78,11 @@ const Entries = ({ addPlayer, players, removePlayer }) => {
             <>
             <Text>List of players</Text>
             { renderPlayers()}
+            <Button
+                buttonStyle={styles.button}
+                title="Get the looser"
+                onPress={() => nextStage()}
+            />
             </>
             : null
         }

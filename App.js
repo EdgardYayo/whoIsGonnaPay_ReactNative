@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import Toast  from 'react-native-toast-message';
 
 import Entries from './src/components/Entries';
 import LoserScreen from './src/components/LoserScreen';
@@ -29,6 +30,44 @@ removePlayerHandler = (idx) => {
   this.setState({ players: newArray});
 }
 
+nextHandler = () => {
+  const { players } = this.state;
+  if(players.length < 2){
+    //alert("You need at least two players to play")
+    Toast.show({
+      type:"error",
+      position:"top",
+      autoHide: true,
+      visibilityTime: 2500,
+      text1: "Sorry",
+      text2: "You need at least two players to play"
+    })
+  } else {
+    this.setState({
+      stage:2
+    }, () => {
+      this.generateLooser()
+    })
+  }
+}
+
+generateLooser = () => {
+  const { players } = this.state;
+  this.setState({
+    result: players[Math.floor(Math.random() * players.length)]
+  })
+}
+
+resetGame = () => {
+  this.setState({
+    stage:1,
+    players:[],
+    result:""
+  })
+}
+
+
+
 render(){
   return (
     <ScrollView>
@@ -39,12 +78,18 @@ render(){
               addPlayer={this.addPlayerHandler} 
               players={this.state.players}
               removePlayer={this.removePlayerHandler}
+              nextStage={this.nextHandler}
               />
           ) : (
-            <LoserScreen/>
+            <LoserScreen
+              result={this.state.result}
+              getNewLooser={this.generateLooser}
+              resetGame={this.resetGame} 
+            />
           )
         }
       </View>
+      <Toast/>
     </ScrollView>
   )};
 }
@@ -60,3 +105,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
