@@ -1,16 +1,21 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button } from 'react-native-elements'; 
+import { Button } from 'react-native-elements';
+import { MainLogo } from '../utils/tools';
+
 
 
 const LoserScreen = ({ result, getNewLooser, resetGame }) => {
   return (
     <>
-      <Text>The looser is</Text>
+
+      <MainLogo/>
+
+      <Text style={{ marginTop: 20, fontSize: 25, fontStyle:"italic" }}>The looser is</Text>
       <Text 
       style={{ 
         marginTop:30, 
-        fontSize:30 
+        fontSize:22,
       }}>
         { result }
       </Text>

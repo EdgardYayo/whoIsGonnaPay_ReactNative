@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { useFonts } from "expo-font";
+import { useFonts } from 'expo-font';
+import { MainLogo } from '../utils/tools';
 
 import { Formik } from "formik";
 import * as Yup from 'yup';
@@ -8,10 +9,9 @@ import { Input, Button, ListItem, Text } from 'react-native-elements';
 
 const Entries = ({ addPlayer, players, removePlayer, nextStage }) => {
 
-    const [fontsLoaded] = useFonts({
-        'Pacifico-Regular': require('../../assets/fonts/Pacifico-Regular.ttf')
-    });
-   
+    const [loaded] = useFonts({
+        "Pacifico-Regular": require('../../assets/fonts/Pacifico-Regular.ttf'),
+      });
 
     const renderPlayers = () => (
         players?.map((item, idx) => (
@@ -28,6 +28,10 @@ const Entries = ({ addPlayer, players, removePlayer, nextStage }) => {
             </ListItem>
         ))
     )
+
+    if(!loaded){
+        return null
+    }
 
   return (
     <>
@@ -46,12 +50,7 @@ const Entries = ({ addPlayer, players, removePlayer, nextStage }) => {
     >
         {({ handleChange, handleBlur, handleSubmit, values, touched, errors }) => (
             <>
-                <Text
-                    style={{
-                        fontFamily:'Pacifico-Regular'
-                    }}
-                >Who pays the bill</Text>
-
+                <MainLogo/>
 
                 <Input
                     placeholder='Add names here'
